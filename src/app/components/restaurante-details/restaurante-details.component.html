@@ -1,0 +1,66 @@
+<div style="width: 400px; margin: auto;">
+    <div *ngIf="currentRestaurante" class="edit-form">
+      <h4>Restaurante</h4>
+      <form>
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nombre"
+            [(ngModel)]="currentRestaurante.nombre"
+            name="nombre"
+          />
+        </div>
+        <div class="form-group">
+          <label for="direccion">Dirección</label>
+          <input
+            type="text"
+            class="form-control"
+            id="direccion"
+            [(ngModel)]="currentRestaurante.direccion"
+            name="direccion"
+          />
+        </div>
+  
+        <!-- <div class="form-group">
+          <label><strong>Status:</strong></label>
+          {{ currentRestaurante.published ? "Published" : "Pending" }}
+        </div> -->
+      </form>
+  
+      <!-- <button
+        class="badge badge-primary mr-2"
+        *ngIf="currentRestaurante.published"
+        (click)="updatePublished(false)"
+      >
+        UnPublish
+      </button> -->
+      <!-- <button
+        *ngIf="!currentRestaurante.published"
+        class="badge badge-primary mr-2"
+        (click)="updatePublished(true)"
+      >
+        Publish
+      </button> -->
+  
+      <button class="badge badge-danger mr-2" (click)="deleteRestaurante()">
+        Delete
+      </button>
+  
+      <button
+        type="submit"
+        class="badge badge-success"
+        (click)="updateRestaurante()"
+      >
+        Update
+      </button>
+      <p>{{ message }}</p>
+    </div>
+  
+    <div *ngIf="!currentRestaurante">
+      <br />
+      <p>Cannot access this Restaurante...</p>
+    </div>
+  </div>
+  

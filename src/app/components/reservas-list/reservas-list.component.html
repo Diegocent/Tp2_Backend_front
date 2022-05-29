@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h4>Reservas</h4>
+        </div>
+        <div class="col-12">
+            <button routerLink="/reservas/add" type="button" class="btn btn-primary mb-3">Agregar</button>
+        </div>
+        <div class="col-12">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <label class="text-primary">Restaurante</label>
+                            <div class="input-group mb-3">
+                                <select [(ngModel)]="filtros.restaurante" class="custom-select" id="inputGroupSelect01">
+                                  <option *ngFor="let res of restaurantes" value="{{res.id}}">{{res.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <label class="text-primary">Fecha</label>
+                            <div class="input-group mb-3">
+                                <input [(ngModel)]="filtros.fecha" type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <label class="text-primary">Cliente</label>
+                            <div class="input-group mb-3">
+                                <select [(ngModel)]="filtros.cliente" class="custom-select" id="inputGroupSelect01">
+                                  <option *ngFor="let cli of clientes" value="{{cli.id}}">{{cli.cedula}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="text-right">
+                                <button (click)="filtrar()" type="button" class="btn btn-primary btn-sm mr-2">Buscar</button>
+                                <button (click)="limpiar()" type="button" class="btn btn-secondary btn-sm">Limpiar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <table class="table table-striped table-dark">
+              <thead>
+                <tr>
+                  <th style="width: 5%;" scope="col">#</th>
+                  <th style="width: 20%;" scope="col">Cliente</th>
+                  <th style="width: 20%;" scope="col">Restaurante</th>
+                  <th style="width: 20%;" scope="col">Mesa</th>
+                  <th style="width: 13%;" scope="col">Fecha</th>
+                  <th style="width: 12%;" scope="col">Hora</th>
+                  <th style="width: 10%;" scope="col">Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let reserva of reservas | paginate: { itemsPerPage: 10, currentPage: p }; index as j">
+                  <th scope="row">{{j+1}}</th>
+                  <td>{{reserva.Cliente.cedula}}</td>
+                  <td>{{reserva.Restaurante.nombre}}</td>
+                  <td>{{reserva.Mesa.nombre}}</td>
+                  <td>{{reserva.fecha}}</td>
+                  <td>{{rangoreserva[reserva.rangohora]}}</td>
+                  <td>{{reserva.cantidad}}</td>
+                </tr>
+                
+              </tbody>
+            </table>
+            <div class="text-center">
+                <pagination-controls class="my-pagination" (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente">
+                </pagination-controls>
+            </div>
+            <p *ngIf="reservas?.length==0" class="w-100 text-center text-muted">No se encontraron resultados</p>
+          </div>
+    </div>
+</div>

@@ -1,0 +1,176 @@
+<div class="container">
+    <h1>Nueva Reservación</h1>
+    <div class="row">
+        <div class="col-md-6 mr-auto">
+            <div class="input-group md-4 mb-3">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Buscar cliente por cédula"
+                    [(ngModel)]="cedula"
+                />
+                <div class="input-group-append">
+                    <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    (click)="findCliente()"
+                    >
+                    Buscar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div *ngIf="!existe">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever=cedula>Crear nuevo Cliente</button>
+    
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title font-weight-bold" id="exampleModalLabel">Nuevo Cliente</h1>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                            <div class="form-group">
+                                <label for="cliente-cedula" class="col-form-label">Cédula:</label>
+                                <input [(ngModel)]="cliente.cedula" type="text" class="form-control" id="cliente-cedula" name="cedula">
+                            </div>
+                            <div class="form-group">
+                                <label for="cliente-nombre" class="col-form-label">Nombre:</label>
+                                <input [(ngModel)]="cliente.nombre" type="text" class="form-control" id="cliente-nombre" name="nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="cliente-apellido" class="col-form-label">Apellido:</label>
+                                <input [(ngModel)]="cliente.apellido" type="text" class="form-control" id="cliente-apellido" name="apellido">
+                            </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" (click)="saveCliente()" data-dismiss="modal">
+                                Guardar
+                            </button>
+                            <!-- <div class="alert alert-success" role="alert">
+                                Cliente guardado exitosamente
+                            </div>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button> -->
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+          <div class="row m3">
+              <div class="submit-form">
+                  <div *ngIf="!submitted">
+                      <div class="form-group">
+                          <label for="restaurante" class="text-primary">Restaurante</label>
+                          <select class="form-control" id="RestauranteId" required [(ngModel)]="reserva.RestauranteId">
+                              <option *ngFor="let res of restaurantes" value="{{res.id}}">{{res.nombre}}</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label class="text-primary">Fecha</label>
+                          <div class="input-group mb-3">
+                              <input [(ngModel)]="reserva.fecha" type="date" class="form-control">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label for="horas" class="text-primary">Rango de horas</label>  
+                          <ng-select
+                              [items]="rangohoras"
+                              [multiple]="true"
+                              [closeOnSelect]="false"
+                              [clearable]="true"
+                              [searchable]="false"
+                              bindLabel="name"
+                              bindValue="id"
+                              placeholder="Selecciona el rango de hora"
+                              [(ngModel)]="horas">
+                              <ng-option *ngFor="let hora of rangohoras" value="{{hora.id}}">
+                                  {{hora.name}}
+                              </ng-option>
+                          </ng-select>
+                      </div>
+      
+                      <button (click)="findmesasdisponibles(reserva.RestauranteId, reserva.fecha, horas)" class="btn btn-outline-secondary btn-sm">Ver mesas disponibles</button>
+      
+                      <div class="form-group">
+                          <br />
+                          <label for="mesa" class="text-primary">Mesa</label>
+                          <select class="form-control" id="MesaId" required [(ngModel)]="reserva.MesaId">
+                              <option *ngFor="let mesa of mesas" value="{{mesa.id}}">{{mesa.nombre}}</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="cantidad" class="text-primary">Cantidad</label>
+                          <input
+                              class="form-control"
+                              id="cantidad"
+                              required
+                              [(ngModel)]="reserva.cantidad"
+                              name="cantidad"
+                          />
+                      </div>
+                      <div class="form-group">
+                          <label for="cliente" class="text-primary">Cliente</label>
+                          <select class="form-control" id="ClienteId" required [(ngModel)]="reserva.ClienteId">
+                              <option *ngFor="let cli of clientes" value="{{cli.id}}">{{cli.cedula}}</option>
+                          </select>
+                      </div>
+                      <button (click)="saveReserva()" class="btn btn-success">Submit</button>
+                  </div>
+                  
+                  <div *ngIf="submitted">
+                      <h4>La reservación se ha realizado con éxito!</h4>
+                      <button class="btn btn-success" (click)="newReserva()">Agregar Nueva Reserva</button>
+                  </div>
+              </div>
+              <div class="col-md-6 mc-auto">
+                  <div *ngIf="findisponibles">
+                      <h4>Mesas disponibles</h4>
+                      <ul class="list-group">
+                          <li
+                          class="list-group-item"
+                          *ngFor="let mesa of mesas"
+                          >
+                              <div>
+                                  <label><strong>Nombre:</strong></label> {{ mesa.nombre }}
+                              </div>
+                              <div>
+                                  <label><strong>Capacidad:</strong></label> {{ mesa.capacidad }}
+                              </div>
+                          </li>
+                      </ul>
+                      <!-- <a class="badge badge-warning" routerLink="/restaurantes/{{ findisponibles.id }}">
+                          Edit
+                      </a> -->
+                  </div>
+                  
+                  <div *ngIf="!findisponibles">
+                      <br />
+                      <br />
+                      <p>Seleccione el Restaurante, Fecha y Hora</p>
+                      <p>.......Click en Ver mesas disponibles.......</p>
+                  </div>
+              </div>
+          </div>    
+        </div>
+    </div>
+</div>
+
+
+<div class="dibujo-canvas">
+    <canvas id="lienzo1" width="300" height="300"></canvas>
+</div>

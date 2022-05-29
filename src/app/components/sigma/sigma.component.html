@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <label class="text-primary mb-3">Restaurante</label>
+            <div class="input-group mb-3">
+                <select [(ngModel)]="restaurante" class="custom-select" id="inputGroupSelect01">
+                <option *ngFor="let res of restaurantes" value="{{res.id}}">{{res.nombre}}</option>
+                </select>
+            </div>
+            
+        </div>
+        <div class="col-md-4 mc-auto">
+            <br>
+            <br>
+            <button (click)="filtrar()" type="button" class="btn btn-primary btn-sm mb-6">Visualizar</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    Mesas del Restaurante - Total de mesas: {{cantidad}} - Total de plantas: {{plantas}}
+                </div>
+                <div class="card-body">
+                <div id='sigma-container'></div>
+                </div>
+            </div>
+        </div>
+        
+    </div>    
+</div>
+
+
+
+<!-- width="600" height="800" style="border:1px solid" -->
