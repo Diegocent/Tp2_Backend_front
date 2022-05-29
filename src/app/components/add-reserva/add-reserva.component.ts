@@ -172,7 +172,7 @@ export class AddReservaComponent implements OnInit {
         RestauranteId: this.reserva.RestauranteId,
         MesaId: this.reserva.MesaId
       };
-  
+      console.log(data);
       this.reservaService.create(data)
         .subscribe(
           response => {
