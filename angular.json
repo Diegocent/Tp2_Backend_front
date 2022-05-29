@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "fronttp2": {
+    "Frontdeltp2": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/fronttp2",
+            "outputPath": "dist/Frontdeltp2",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -70,18 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "fronttp2:build"
+            "browserTarget": "Frontdeltp2:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "fronttp2:build:production"
+              "browserTarget": "Frontdeltp2:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fronttp2:build"
+            "browserTarget": "Frontdeltp2:build"
           }
         },
         "test": {
@@ -119,16 +119,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "fronttp2:serve"
+            "devServerTarget": "Frontdeltp2:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "fronttp2:serve:production"
+              "devServerTarget": "Frontdeltp2:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "fronttp2"
+  "defaultProject": "Frontdeltp2"
 }
