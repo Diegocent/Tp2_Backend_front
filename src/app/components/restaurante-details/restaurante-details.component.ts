@@ -33,24 +33,6 @@ export class RestauranteDetailsComponent implements OnInit {
         });
   }
 
-  /* updatePublished(status): void {
-    const data = {
-      title: this.currentRestaurante.title,
-      description: this.currentRestaurante.description,
-      published: status
-    };
-
-    this.restauranteService.update(this.currentRestaurante.id, data)
-      .subscribe(
-        response => {
-          this.currentRestaurante.published = status;
-          console.log(response);
-        },
-        error => {
-          console.log(error);
-        });
-  } */
-
   updateRestaurante(): void {
     this.restauranteService.update(this.currentRestaurante.id, this.currentRestaurante)
       .subscribe(
