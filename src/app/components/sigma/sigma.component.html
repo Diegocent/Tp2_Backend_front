@@ -3,16 +3,23 @@
         <div class="col-4">
             <label class="text-primary mb-3">Restaurante</label>
             <div class="input-group mb-3">
-                <select [(ngModel)]="restaurante" class="custom-select" id="inputGroupSelect01">
+                <select [(ngModel)]="restaurante" class="custom-select" id="inputGroupSelect01" (change)="getCantPisos()">
                 <option *ngFor="let res of restaurantes" value="{{res.id}}">{{res.nombre}}</option>
                 </select>
             </div>
-            
+
+          <label class="text-primary mb-3">Piso</label>
+          <div class="input-group mb-3">
+            <select [(ngModel)]="pisoSeleccionado" class="custom-select" >
+              <option *ngFor="let res of pisos" value="{{res}}">{{res}}</option>
+            </select>
+          </div>
+
         </div>
         <div class="col-md-4 mc-auto">
             <br>
             <br>
-            <button (click)="filtrar()" type="button" class="btn btn-primary btn-sm mb-6">Visualizar</button>
+            <button (click)="graficar()" type="button" class="btn btn-primary btn-sm mb-6">Visualizar</button>
         </div>
     </div>
     <div class="row">
@@ -22,12 +29,14 @@
                     Mesas del Restaurante - Total de mesas: {{cantidad}} - Total de plantas: {{plantas}}
                 </div>
                 <div class="card-body">
-                <div id='sigma-container'></div>
+                <div id='sigma-container'>
+                  <app-grafico-mesas [mesas]="mesas"></app-grafico-mesas>
+                </div>
                 </div>
             </div>
         </div>
-        
-    </div>    
+
+    </div>
 </div>
 
 

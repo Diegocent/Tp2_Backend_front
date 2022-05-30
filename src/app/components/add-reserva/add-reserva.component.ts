@@ -13,7 +13,7 @@ import { RestauranteService } from 'src/app/services/restaurante.service';
   styleUrls: ['./add-reserva.component.css']
 })
 export class AddReservaComponent implements OnInit {
-  
+
   reserva = {
     ClienteId: null,
     RestauranteId: null,
@@ -31,7 +31,7 @@ export class AddReservaComponent implements OnInit {
   horas: number[];
   mesasreservadas;
   restaurantes;
-  clientes; 
+  clientes;
   mesas;
   cedula;
   existe;
@@ -47,7 +47,7 @@ export class AddReservaComponent implements OnInit {
     {id: 6, name: '21 a 22'},
     {id: 7, name: '22 a 23'},
   ];
-  
+
   rangoreserva = {
     1: "12 a 13",
     2: "13 a 14",
@@ -58,7 +58,7 @@ export class AddReservaComponent implements OnInit {
     7: "22 a 23"
   }
   submitted = false;
-  
+
 
   constructor(private reservaService: ReservaService, private restauranteService: RestauranteService, private clienteService: ClienteService, private mesaService: MesaService) { }
 
@@ -75,7 +75,7 @@ export class AddReservaComponent implements OnInit {
   refreshList(): void {
     this.mesas = null;
     this.mesasreservadas = null;
-    
+
   }
 
   findmesasdisponibles(restaurante, fecha, horas): void {
@@ -158,7 +158,7 @@ export class AddReservaComponent implements OnInit {
           console.log(error);
         });
     }
-    
+
   }
 
   saveReserva(): void {
@@ -183,7 +183,7 @@ export class AddReservaComponent implements OnInit {
             console.log(error);
           });
     });
-    
+
   }
 
   newReserva(): void {

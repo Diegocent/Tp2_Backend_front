@@ -14,18 +14,20 @@ import { ReservasListComponent } from './components/reservas-list/reservas-list.
 import { AddReservaComponent } from './components/add-reserva/add-reserva.component';
 import { AddClienteComponent } from './components/add-cliente/add-cliente.component';
 import { SigmaComponent } from './components/sigma/sigma.component';
+import {GraficoMesasComponent} from "./components/grafico-mesas/grafico-mesas.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AddRestauranteComponent,
-    RestauranteDetailsComponent,
-    RestaurantesListComponent,
-    ReservasListComponent,
-    AddReservaComponent,
-    AddClienteComponent,
-    SigmaComponent
-  ],
+    declarations: [
+        AppComponent,
+        AddRestauranteComponent,
+        RestauranteDetailsComponent,
+        RestaurantesListComponent,
+        ReservasListComponent,
+        AddReservaComponent,
+        AddClienteComponent,
+        SigmaComponent,
+        GraficoMesasComponent,
+    ],
   imports: [
     BrowserModule,
     NgxPaginationModule,

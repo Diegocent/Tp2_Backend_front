@@ -2,8 +2,8 @@
 import {Component, OnInit} from '@angular/core';
 import sigma from 'sigma';
 
-import { MesaService } from 'src/app/services/mesa.service';
-import { RestauranteService } from 'src/app/services/restaurante.service';
+import {MesaService} from 'src/app/services/mesa.service';
+import {RestauranteService} from 'src/app/services/restaurante.service';
 
 @Component({
   selector: 'app-sigma',
@@ -25,9 +25,7 @@ export class SigmaComponent implements OnInit {
       {id: "e0", source: "p1", target: "p2", color: '#000000', type: 'line', size: 1}
     ]
   };
-  private grafos = [
-    
-  ];
+  private grafos = [];
   private colores = [
     '#008cc2',
     '#1E90FF',
@@ -49,46 +47,68 @@ export class SigmaComponent implements OnInit {
   restaurantes;
   cantidad;
   plantas;
+  pisos: number[];
+  pisoSeleccionado: number;
 
   constructor(private mesaService: MesaService, private restauranteService: RestauranteService) {
 
   }
 
   ngOnInit() {
-    this.varios=false;
+    this.varios = false;
     this.retrieveRestaurantes();
   }
-  
-  filtrar(): void {
-    this.retrieveMesas(this.restaurante);
+
+  graficar(): void {
+    this.mesaService.getAll(this.restaurante, null).subscribe(data => {
+      this.mesas = data.filter( mesa => {
+        return parseInt(mesa.numero_planta) == this.pisoSeleccionado
+      })
+    })
   }
 
+  getCantPisos() {
+    this.mesaService.getAll(this.restaurante, null).subscribe(data => {
+      console.log('cant pisos comienza')
+      let mayor = 0
+      data.forEach( mesa => {
+        if(mesa.numero_planta > mayor){
+          mayor = mesa.numero_planta
+        }
+      })
+      this.pisos = Array.from({length: mayor}, (_, i) => i + 1)
+      //seleccionar primer piso
+      this.pisoSeleccionado = this.pisos[0]
+    })
+  }
+
+
   dibujar(): void {
-    
+
     /* this.grafos.forEach(graph => {
        */
-      this.sigma = new sigma(
-        {
-          renderer: {
-            container: document.getElementById("sigma-container"),
-            type: 'canvas'
-          },
-          settings: {}
-        }
-      );
-      /* this.sigma.graph.read(graph); */
-      this.sigma.graph.read(this.graph);
-      this.sigma.refresh();
-      console.log(this.sigma)
-      
+    this.sigma = new sigma(
+      {
+        renderer: {
+          container: document.getElementById("sigma-container"),
+          type: 'canvas'
+        },
+        settings: {}
+      }
+    );
+    /* this.sigma.graph.read(graph); */
+    this.sigma.graph.read(this.graph);
+    this.sigma.refresh();
+    console.log(this.sigma)
+
     /* }); */
     console.log(this.sigma);
   }
 
   getPlantasR(): void {
-    var mesass=[];
+    var mesass = [];
     this.mesas.forEach(mesa => {
-      if(mesass.indexOf(mesa.planta)<0){
+      if (mesass.indexOf(mesa.planta) < 0) {
         mesass.push(mesa.planta);
       }
     });
@@ -103,7 +123,10 @@ export class SigmaComponent implements OnInit {
           this.mesas = data;
           this.cantidad = this.mesas.length;
           this.getPlantasR();
-          this.createMesasDraw();
+          // this.createMesasDraw();
+          this.mesas.forEach((mesa) => {
+            console.log(mesa.posicion[0])
+          })
         },
         error => {
           console.log(error);
@@ -111,31 +134,61 @@ export class SigmaComponent implements OnInit {
   }
 
   createMesasDraw(): void {
-    var anterior=1;
-    var mayorx=0;
-    var mayory=0;
+    var anterior = 1;
+    var mayorx = 0;
+    var mayory = 0;
     var salto = 0;
     this.mesas.forEach(mesa => {
-      console.log("actual",mesa.nombre);
-      console.log("posx", mesa.posicionx+salto);
-      if ((mesa.posicionx + salto)>mayorx) {
+      console.log("actual", mesa.nombre);
+      console.log("posx", mesa.posicionx + salto);
+      if ((mesa.posicionx + salto) > mayorx) {
         mayorx = mesa.posicionx + salto;
       }
-      if (mesa.posiciony>mayory) {
-        mayory=mesa.posiciony;
+      if (mesa.posiciony > mayory) {
+        mayory = mesa.posiciony;
       }
       if (anterior != mesa.planta) {
         console.log("cambio de planta");
         console.log("maxx", mayorx);
         console.log(this.graph.nodes);
-        if(salto>0){mayorx= mesa.posicionx + mayorx + 0.2}
-        this.graph.nodes.push({id: "s1"+mesa.planta, label: this.planta[mesa.planta], x: (mayorx+0.2), y: 0, size: 2, color: '#000000'});
-        this.graph.nodes.push({id: "s2"+mesa.planta, label: this.planta[mesa.planta], x: (mayorx+0.2), y: (mayory+1), size: 2, color: '#000000'});
-        this.graph.edges.push({id: "e1"+mesa.planta, source: "s1"+mesa.planta, target: "s2"+mesa.planta, color: '#000000', type: 'line', size: 1});
+        if (salto > 0) {
+          mayorx = mesa.posicionx + mayorx + 0.2
+        }
+        this.graph.nodes.push({
+          id: "s1" + mesa.planta,
+          label: this.planta[mesa.planta],
+          x: (mayorx + 0.2),
+          y: 0,
+          size: 2,
+          color: '#000000'
+        });
+        this.graph.nodes.push({
+          id: "s2" + mesa.planta,
+          label: this.planta[mesa.planta],
+          x: (mayorx + 0.2),
+          y: (mayory + 1),
+          size: 2,
+          color: '#000000'
+        });
+        this.graph.edges.push({
+          id: "e1" + mesa.planta,
+          source: "s1" + mesa.planta,
+          target: "s2" + mesa.planta,
+          color: '#000000',
+          type: 'line',
+          size: 1
+        });
         salto = mayorx;
         console.log(salto);
       }
-      this.graph.nodes.push({id: mesa.id, label: mesa.nombre, x: (mesa.posicionx+salto), y: mesa.posiciony, size: mesa.capacidad, color: this.colores[mesa.planta]});
+      this.graph.nodes.push({
+        id: mesa.id,
+        label: mesa.nombre,
+        x: (mesa.posicionx + salto),
+        y: mesa.posiciony,
+        size: mesa.capacidad,
+        color: this.colores[mesa.planta]
+      });
       anterior = mesa.planta;
     });
     this.dibujar();
