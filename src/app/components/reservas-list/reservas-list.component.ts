@@ -17,7 +17,7 @@ export class ReservasListComponent implements OnInit {
   p: number;
   currentReserva = null;
   currentIndex = -1;
-  
+
   filtros= {
     restaurante: null,
     fecha: null,
@@ -57,7 +57,7 @@ export class ReservasListComponent implements OnInit {
       .subscribe(
         data => {
           this.restaurantes = data;
-          console.log(data);
+          console.log('restaurantes: ',data);
         },
         error => {
           console.log(error);
@@ -69,7 +69,7 @@ export class ReservasListComponent implements OnInit {
       .subscribe(
         data => {
           this.clientes = data;
-          console.log(data);
+          console.log('clientes: ',data);
         },
         error => {
           console.log(error);

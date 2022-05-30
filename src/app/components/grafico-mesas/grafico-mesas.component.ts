@@ -50,14 +50,14 @@ export class GraficoMesasComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.mesas.forEach((mesa) => {
       let imageRect = new Rect(
-        new Point(mesa.posicion[0], mesa.posicion[1]),
+        new Point(mesa.posicionx, mesa.posiciony),
         new Size(40, 40)
       );
       let imagen = new Image('/assets/icons/restaurant.png', imageRect);
-      let capacidadMesa = new Text(mesa.capacidad, [parseInt(mesa.posicion[0])+15, parseInt(mesa.posicion[1])+40], {
+      let capacidadMesa = new Text(mesa.capacidad, [parseInt(mesa.posicionx)+15, parseInt(mesa.posiciony)+40], {
         font: `bold 15px Arial`,
       });
-      let nombreMesa = new Text(mesa.nombre, [parseInt(mesa.posicion[0]), parseInt(mesa.posicion[1])+60], {
+      let nombreMesa = new Text(mesa.nombre, [parseInt(mesa.posicionx), parseInt(mesa.posiciony)+60], {
         font: `bold 15px Arial`,
       });
       group.append(imagen, capacidadMesa, nombreMesa);

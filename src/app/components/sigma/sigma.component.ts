@@ -62,7 +62,7 @@ export class SigmaComponent implements OnInit {
   graficar(): void {
     this.mesaService.getAll(this.restaurante, null).subscribe(data => {
       this.mesas = data.filter( mesa => {
-        return parseInt(mesa.numero_planta) == this.pisoSeleccionado
+        return parseInt(mesa.planta) == this.pisoSeleccionado
       })
     })
   }
@@ -72,8 +72,8 @@ export class SigmaComponent implements OnInit {
       console.log('cant pisos comienza')
       let mayor = 0
       data.forEach( mesa => {
-        if(mesa.numero_planta > mayor){
-          mayor = mesa.numero_planta
+        if(mesa.planta > mayor){
+          mayor = mesa.planta
         }
       })
       this.pisos = Array.from({length: mayor}, (_, i) => i + 1)
