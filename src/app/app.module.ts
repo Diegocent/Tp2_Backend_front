@@ -15,6 +15,7 @@ import { AddReservaComponent } from './components/add-reserva/add-reserva.compon
 import { AddClienteComponent } from './components/add-cliente/add-cliente.component';
 import { SigmaComponent } from './components/sigma/sigma.component';
 import {GraficoMesasComponent} from "./components/grafico-mesas/grafico-mesas.component";
+import { GestionConsumoComponent } from './components/gestion-consumo/gestion-consumo.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import {GraficoMesasComponent} from "./components/grafico-mesas/grafico-mesas.co
         AddClienteComponent,
         SigmaComponent,
         GraficoMesasComponent,
+        GestionConsumoComponent,
     ],
   imports: [
     BrowserModule,

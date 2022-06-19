@@ -1,0 +1,54 @@
+
+### Categorias
+POST http://localhost:9090/api/categoria/
+Content-Type: application/json
+
+{
+  "nombre": "Bebida"
+}
+
+###
+GET http://localhost:9090/api/categoria/
+Accept: application/json
+
+### Productos
+POST http://localhost:9090/api/producto/
+Content-Type: application/json
+
+{
+  "nombre": "Gaseosa Coca Cola",
+  "CategoriaId": 1,
+  "precio_venta": 10000
+}
+
+###
+GET http://localhost:9090/api/producto/
+
+
+### Cabecera Consumo
+POST  http://localhost:9090/api/cabecera_consumo
+Content-Type: application/json
+
+{
+  "MesaId": 2,
+  "ClienteId": 1,
+  "total": 0,
+  "estado": "abierto"
+}
+
+###
+GET http://localhost:9090/api/cabecera_consumo/
+
+
+### Detalle Consumo
+POST  http://localhost:9090/api/detalle_consumo/
+Content-Type: application/json
+
+{
+  "ProductoId": 3,
+  "CabeceraConsumoId": 1,
+  "cantidad": 1
+}
+
+###
+GET http://localhost:9090/api/detalle_consumo/

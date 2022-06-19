@@ -1,0 +1,86 @@
+<div class="container">
+  <h1>Gestion de Consumo</h1>
+  <div class="row">
+
+    <div class="col-md-6 mr-auto">
+      <div class="card">
+        <div class="card-body">
+          <div class="submit-form">
+
+            <div class="form-group">
+              <label for="RestauranteId" class="text-primary">Restaurante</label>
+              <select class="form-control" id="RestauranteId" required [(ngModel)]="restauranteSeleccionado">
+                <option *ngFor="let res of restaurantes" value="{{res.id}}">{{res.nombre}}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="text-primary">Fecha</label>
+              <div class="input-group mb-3">
+                <input type="date" [ngModel]="fecha | date:'yyyy-MM-dd'" (ngModelChange)="fecha = $event" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="horas" class="text-primary">Rango de horas</label>
+              <ng-select
+                id="horas"
+                [items]="rangohoras"
+                [multiple]="true"
+                [closeOnSelect]="false"
+                [clearable]="true"
+                [searchable]="false"
+                bindLabel="name"
+                bindValue="id"
+                placeholder="Selecciona el rango de hora"
+                [(ngModel)]="hora">
+                <ng-option *ngFor="let hora of rangohoras" value="{{hora.id}}">
+                  {{hora.name}}
+                </ng-option>
+              </ng-select>
+            </div>
+
+            <button (click)="retrieveMesas()" class="btn btn-outline-secondary btn-sm">Ver mesas disponibles</button>
+
+            <div class="form-group">
+              <br/>
+              <label for="MesaId" class="text-primary">Mesa</label>
+              <select class="form-control" id="MesaId" required [(ngModel)]="mesaSeleccionada">
+                <option *ngFor="let mesa of mesas" value="{{mesa.id}}">{{mesa.nombre}}</option>
+              </select>
+            </div>
+
+            <button (click)="seleccionarMesa()" class="btn btn-outline-secondary btn-sm">Seleccionar Mesa</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 mr-auto">
+      <div class="card">
+        <div class="card-body">
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    obtener cabecera detalle
+    <button (click)="obtenerCabecera()">Obtener</button>
+    cabecera cambiar a abierto
+    <button (click)="abrirMesa(1)">Abrir Mesa</button>
+    cerrar mesa ocupada
+    <button (click)="cerrarMesa(1)">Cerrar Mesa</button>
+    pdf mesa ocupada
+    <button (click)="pdf(1)">pdf</button>
+  </div>
+</div>
+
+
+<div class="container">
+
+</div>

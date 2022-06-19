@@ -6,6 +6,7 @@ import { AddRestauranteComponent } from './components/add-restaurante/add-restau
 import { ReservasListComponent } from './components/reservas-list/reservas-list.component';
 import { AddReservaComponent } from './components/add-reserva/add-reserva.component';
 import { SigmaComponent } from './components/sigma/sigma.component';
+import {GestionConsumoComponent} from "./components/gestion-consumo/gestion-consumo.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'reservas', pathMatch: 'full' },
@@ -15,6 +16,8 @@ const routes: Routes = [
   { path: 'reservas', component: ReservasListComponent },
   { path: 'reservas/add', component: AddReservaComponent },
   { path: 'planos', component: SigmaComponent },
+  { path: 'gestion-consumo', component: GestionConsumoComponent },
+
 ];
 
 @NgModule({
