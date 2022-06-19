@@ -3,6 +3,8 @@ import {jsPDF} from 'jspdf';
 import 'jspdf-autotable';
 import {UserOptions} from 'jspdf-autotable';
 import {HttpClient} from "@angular/common/http";
+import {RestauranteService} from "./restaurante.service";
+import {MesaService} from "./mesa.service";
 
 interface jsPDFWithPlugin extends jsPDF {
   autoTable: (options: UserOptions) => jsPDF;
@@ -11,6 +13,7 @@ interface jsPDFWithPlugin extends jsPDF {
 interface Detalle {
   nombre: string
   cantidad: number
+  precioUnitario: number
   precio: number
 }
 
@@ -20,45 +23,88 @@ interface Detalle {
 export class PdfService {
   doc = new jsPDF() as jsPDFWithPlugin;
   cabecera: any
+  mesa: any
+  restaurante: any
   detalles: Detalle[] = []
 
-  constructor(private http: HttpClient) {
-    this.obtenerCabecera()
-
+  constructor(private http: HttpClient,
+              private restauranteService: RestauranteService,
+              private mesaService: MesaService) {
   }
 
-  obtenerCabecera() {
-    this.http.get('http://localhost:9090/api/cabecera_consumo/1').subscribe((res) => {
-      console.log('cabecera: ', res)
-      this.cabecera = res
-      this.procesarDetalles()
+  generarPDF(mesa: number) {
+    //traer mesa
+    this.mesaService.get(mesa).subscribe((res) => {
+      this.mesa = res
+      // restaurante
+      this.restauranteService.get(this.mesa.RestauranteId).subscribe((restaurante) => {
+        this.restaurante = restaurante
+        // cabecera
+        this.obtenerCabecera(this.mesa.cabeceras_consumos[0].id).subscribe((cabecera) => {
+          this.cabecera = cabecera
+          this.procesarDetalles()
+          this.dibujarPDF()
+        })
+
+      })
+
     })
-
   }
 
-  generarPdf() {
+
+  obtenerCabecera(cabecera: number) {
+    return this.http.get(`http://localhost:9090/api/cabecera_consumo/${cabecera}`)
+  }
+
+
+  procesarDetalles() {
+    let aux: Detalle
+    for (let detalle of this.cabecera.detalles_consumos) {
+      aux = {
+        nombre: detalle.Producto.nombre,
+        cantidad: detalle.cantidad,
+        precioUnitario: detalle.Producto.precio_venta,
+        precio: parseInt(detalle.cantidad) * parseInt(detalle.Producto.precio_venta)
+      }
+      this.detalles.push(aux)
+    }
+  }
+
+  dibujarPDF() {
+    this.doc.setFontSize(18)
+    this.doc.text(this.restaurante.nombre, 15, 15)
+    this.doc.setFontSize(11)
+    this.doc.text(this.restaurante.direccion, 15, 20)
+    this.doc.text(this.mesa.nombre, 15, 25)
+    this.doc.setFontSize(14)
     this.doc.autoTable(this.cabeceraOptions())
-    console.log(this.calculateY(0))
     this.doc.autoTable(this.detallesOptions())
     this.doc.autoTable(this.totalOptions())
-    this.doc.output("dataurlnewwindow")
+
+    // @ts-ignore
+    window.open(this.doc.output('bloburl', {
+      filename: `ticket_${this.cabecera.id}`
+    }));
   }
 
   cabeceraOptions() {
+    const today = new Date(Date.now())
     return {
       body: [
-        {titulo: 'Fecha', dato: this.cabecera.fecha_y_hora_cierre},
+        {titulo: 'Fecha', dato: today.toLocaleDateString()},
         {titulo: 'Cliente', dato: this.cabecera.Cliente.nombre + ' ' + this.cabecera.Cliente.apellido},
-      ]
+      ],
+      startY: 35,
     }
   }
 
   detallesOptions() {
     return {
       columns: [
-        { dataKey: 'nombre', header: 'Nombre' },
-        { dataKey: 'cantidad', header: 'Cantidad' },
-        { dataKey: 'precio', header: 'Precio' },
+        {dataKey: 'nombre', header: 'Producto'},
+        {dataKey: 'cantidad', header: 'Cantidad'},
+        {dataKey: 'precioUnitario', header: 'Precio'},
+        {dataKey: 'precio', header: 'Total'},
       ],
       body: this.detalles as any
     }
@@ -66,29 +112,13 @@ export class PdfService {
 
   totalOptions() {
     return {
+      columns: [
+        {dataKey: 'total', header: 'Total (Gs)'},
+      ],
       body: [
-        {titulo: 'Fecha', dato: this.cabecera.fecha_y_hora_cierre},
-        {titulo: 'Cliente', dato: this.cabecera.Cliente.nombre + ' ' + this.cabecera.Cliente.apellido},
-      ]
+        {total: this.cabecera.total},
+      ],
     }
-  }
-
-  calculateY(offset: number) {
-    return (this.doc as any).lastAutoTable.finalY + offset
-  }
-
-  procesarDetalles() {
-    let aux: Detalle
-    // console.log('gestion: ', this.cabecera.detalles_consumos)
-    for (let detalle of this.cabecera.detalles_consumos) {
-      aux = {
-        nombre: detalle.Producto.nombre,
-        cantidad: detalle.cantidad,
-        precio: detalle.Producto.precio_venta
-      }
-      this.detalles.push(aux)
-    }
-    console.log('detalles: ', this.detalles)
   }
 
 

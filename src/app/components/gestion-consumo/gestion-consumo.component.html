@@ -45,7 +45,7 @@
             <div class="form-group">
               <br/>
               <label for="MesaId" class="text-primary">Mesa</label>
-              <select class="form-control" id="MesaId" required [(ngModel)]="mesaSeleccionada">
+              <select class="form-control" id="MesaId" required [(ngModel)]="mesaNumero">
                 <option *ngFor="let mesa of mesas" value="{{mesa.id}}">{{mesa.nombre}}</option>
               </select>
             </div>
@@ -69,14 +69,12 @@
   </div>
 
   <div class="row">
-    obtener cabecera detalle
-    <button (click)="obtenerCabecera()">Obtener</button>
     cabecera cambiar a abierto
     <button (click)="abrirMesa(1)">Abrir Mesa</button>
     cerrar mesa ocupada
-    <button (click)="cerrarMesa(1)">Cerrar Mesa</button>
+    <button (click)="cerrarMesa()">Cerrar Mesa</button>
     pdf mesa ocupada
-    <button (click)="pdf(1)">pdf</button>
+    <button (click)="pdf()">pdf</button>
   </div>
 </div>
 

@@ -36,7 +36,8 @@ export class GestionConsumoComponent implements OnInit {
   restaurantes: restaurante[] = []
   restauranteSeleccionado: number
   mesas: mesa[] = []
-  mesaSeleccionada: number
+  mesaNumero: number
+  mesaSeleccionada: any
   // fecha elegida
   fecha: Date
   rangohoras = [
@@ -50,13 +51,15 @@ export class GestionConsumoComponent implements OnInit {
   ];
   // hora elegida
   hora: number
+  //si la mesa estadio esta abierta o cerrada
+  abierto: boolean = false
 
 
   constructor(private reservaService: ReservaService,
               private mesaService: MesaService,
               private restauranteService: RestauranteService,
               private http: HttpClient,
-              private pdfService:PdfService) {
+              private pdfService: PdfService) {
   }
 
   ngOnInit(): void {
@@ -69,7 +72,7 @@ export class GestionConsumoComponent implements OnInit {
       .subscribe(
         data => {
           this.restaurantes = data;
-          console.log(data);
+          console.log('restaurantes: ', data);
         },
         error => {
           console.log(error);
@@ -81,7 +84,7 @@ export class GestionConsumoComponent implements OnInit {
       .subscribe(
         data => {
           this.mesas = data;
-          console.log(data);
+          console.log('mesas: ', data);
         },
         error => {
           console.log(error);
@@ -89,18 +92,19 @@ export class GestionConsumoComponent implements OnInit {
   }
 
   seleccionarMesa() {
-    console.log(this.fecha)
-    console.log(this.hora)
-    console.log(this.mesaSeleccionada)
-  }
-
-  obtenerCabecera() {
-    this.http.get(`${this.baseUrl}/1`).subscribe((res) => {
-      console.log(res)
+    this.mesaService.get(this.mesaNumero).subscribe((res) => {
+      this.mesaSeleccionada = res
+      if (res.cabeceras_consumos.length === 0) {
+        this.abierto = false
+      } else {
+        this.abierto = true
+      }
     })
   }
 
+
   abrirMesa(id: number) {
+    id = 2
     let body = {
       "estado": "abierto",
     }
@@ -109,17 +113,25 @@ export class GestionConsumoComponent implements OnInit {
     })
   }
 
-  cerrarMesa(id: number) {
-    let body = {
-      "estado": "cerrado",
+  cerrarMesa() {
+    if (this.abierto === true) {
+      this.pdfService.generarPDF(this.mesaNumero)
+      this.http.put(`${this.baseUrl}/cerrar/?MesaId=${this.mesaSeleccionada.id}`, {}).subscribe((res) => {
+        console.log(res)
+      })
+    } else {
+      console.log('mesa ya cerrada o no seleccionada')
     }
-    this.http.put(`${this.baseUrl}/${id}`, body).subscribe((res) => {
-      console.log(res)
-    })
   }
 
-  pdf(id: number) {
-   this.pdfService.generarPdf()
+  pdf() {
+    // si ya se cerro
+    if (this.abierto === true) {
+      this.pdfService.generarPDF(this.mesaNumero)
+    } else {
+      console.log('mesa ya cerrada o no seleccionada')
+    }
+
   }
 
 

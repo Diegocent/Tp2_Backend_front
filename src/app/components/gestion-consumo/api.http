@@ -1,4 +1,3 @@
-
 ### Categorias
 POST http://localhost:9090/api/categoria/
 Content-Type: application/json
@@ -16,9 +15,9 @@ POST http://localhost:9090/api/producto/
 Content-Type: application/json
 
 {
-  "nombre": "Gaseosa Coca Cola",
+  "nombre": "Cerveza Stella 750ml",
   "CategoriaId": 1,
-  "precio_venta": 10000
+  "precio_venta": 17500
 }
 
 ###
@@ -30,7 +29,7 @@ POST  http://localhost:9090/api/cabecera_consumo
 Content-Type: application/json
 
 {
-  "MesaId": 2,
+  "MesaId": 3,
   "ClienteId": 1,
   "total": 0,
   "estado": "abierto"
@@ -45,10 +44,28 @@ POST  http://localhost:9090/api/detalle_consumo/
 Content-Type: application/json
 
 {
-  "ProductoId": 3,
-  "CabeceraConsumoId": 1,
-  "cantidad": 1
+  "ProductoId": 4,
+  "CabeceraConsumoId": 6,
+  "cantidad": 2
 }
 
 ###
 GET http://localhost:9090/api/detalle_consumo/
+
+
+
+### Mesa
+GET http://localhost:9090/api/mesa/2
+
+###
+PUT http://localhost:9090/api/cabecera_consumo/cerrar/?MesaId=2
+Content-Type: application/json
+
+{}
+
+
+###
+POST http://localhost:9090/api/mesa
+Content-Type: application/json
+
+{ "nombre": "Mesa 2", "RestauranteId": 1, "posicionx": 200, "posiciony": 100, "planta": 1, "capacidad": 4 }

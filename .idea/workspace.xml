@@ -2,20 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad139505-ea7a-4266-bedc-a9a97ce31cbe" name="Changes" comment="gestion consumo y pdf primera parte">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/components/gestion-consumo/api.http" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/components/gestion-consumo/gestion-consumo.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/components/gestion-consumo/gestion-consumo.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/components/gestion-consumo/gestion-consumo.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/components/gestion-consumo/gestion-consumo.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/services/pdf.service.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/services/pdf.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/gestion-consumo/api.http" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/gestion-consumo/api.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/gestion-consumo/gestion-consumo.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/gestion-consumo/gestion-consumo.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/gestion-consumo/gestion-consumo.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/gestion-consumo/gestion-consumo.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/pdf.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/pdf.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,10 +55,10 @@
     <configuration name="api | Detalle Consumo" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/app/components/gestion-consumo/api.http" index="7" requestIdentifier="Detalle Consumo" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="api | Productos" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/app/components/gestion-consumo/api.http" index="3" requestIdentifier="Productos" runType="Run single request">
+    <configuration name="api | Mesa" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/app/components/gestion-consumo/api.http" index="9" requestIdentifier="Mesa" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="api | #4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/app/components/gestion-consumo/api.http" index="4" requestIdentifier="#4" runType="Run single request">
+    <configuration name="api | #11" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/app/components/gestion-consumo/api.http" index="11" requestIdentifier="#11" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="api | #6" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/app/components/gestion-consumo/api.http" index="6" requestIdentifier="#6" runType="Run single request">
@@ -86,11 +77,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.api | #6" />
         <item itemvalue="HTTP Request.api | Detalle Consumo" />
-        <item itemvalue="HTTP Request.api | #4" />
         <item itemvalue="HTTP Request.api | Cabecera Consumo" />
-        <item itemvalue="HTTP Request.api | Productos" />
+        <item itemvalue="HTTP Request.api | Mesa" />
+        <item itemvalue="HTTP Request.api | #11" />
+        <item itemvalue="HTTP Request.api | #6" />
       </list>
     </recent_temporary>
   </component>
@@ -103,8 +94,17 @@
       <option name="presentableId" value="Default" />
       <updated>1653846222424</updated>
       <workItem from="1653846223926" duration="17525000" />
-      <workItem from="1655580548713" duration="11844000" />
+      <workItem from="1655580548713" duration="11879000" />
+      <workItem from="1655646457071" duration="10620000" />
     </task>
+    <task id="LOCAL-00001" summary="gestion consumo y pdf primera parte">
+      <created>1655600121005</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1655600121005</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
