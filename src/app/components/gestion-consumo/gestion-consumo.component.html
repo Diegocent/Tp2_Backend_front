@@ -21,7 +21,7 @@
               </div>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="horas" class="text-primary">Rango de horas</label>
               <ng-select
                 id="horas"
@@ -38,7 +38,7 @@
                   {{hora.name}}
                 </ng-option>
               </ng-select>
-            </div>
+            </div> -->
 
             <button (click)="retrieveMesas()" class="btn btn-outline-secondary btn-sm">Ver mesas disponibles</button>
 
@@ -60,7 +60,103 @@
     <div class="col-md-6 mr-auto">
       <div class="card">
         <div class="card-body">
+          <div *ngIf="mostrar">
+            <div class="form-group">
+              <label for="Cliente" class="text-primary">Cliente</label>
+              <select class="form-control" id="Cliente" required [(ngModel)]="clienteSeleccionado">
+                <option *ngFor="let cli of clientes" value="{{cli.id}}">{{cli.nombre}}</option>
+              </select>
 
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th style="width: 5%;" scope="col">#</th>
+                    <th style="width: 20%;" scope="col">Producto</th>
+                    <th style="width: 10%;" scope="col">Cantidad</th>
+                    <th style="width: 10%;" scope="col">Precio por unidad</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let det of detalles | paginate: { itemsPerPage: 10, currentPage: p }; index as j">
+                    <th scope="row">{{j+1}}</th>
+                    <td>{{det.Producto.nombre}}</td>
+                    <td>{{det.cantidad}}</td>
+                    <td>{{det.Producto.precio_venta}}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+              <h1>Total = {{total}}</h1>
+              <div id="opcion">
+                <label for="Productos" class="text-primary">Productos</label>
+                <select class="form-control" id="Productos" required [(ngModel)]="productoSeleccionado">
+                  <option *ngFor="let prod of productos" value="{{prod.id}}">{{prod.nombre}}</option>
+                </select>
+              </div>
+              <div id="opcion">
+                <input
+                    width="20"
+                    type="number"
+                    class="form-control"
+                    placeholder="Cantidad"
+                    [(ngModel)]="cantidad"
+                />
+              </div>
+              <div id="opcion">
+                <button (click)="agregarProducto()"  class="btn btn-outline-secondary btn-sm">Agregar</button>
+              </div>
+              <button class="btn btn-outline-secondary btn-sm" (click)="cerrarMesa()">Cerrar Mesa</button>
+            </div>
+          </div>
+          <div *ngIf="!mostrar">
+            <div class="form-group">
+              <label for="Cliente" class="text-primary">Cliente</label>
+              <select class="form-control" id="Cliente" required [(ngModel)]="clienteSeleccionado">
+                <option *ngFor="let cli of clientes" value="{{cli.id}}">{{cli.nombre}}</option>
+              </select>
+              <button class="btn btn-outline-secondary btn-sm" (click)="cargarMesa()">Abrir Mesa</button>
+
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th style="width: 5%;" scope="col">#</th>
+                    <th style="width: 20%;" scope="col">Producto</th>
+                    <th style="width: 10%;" scope="col">Cantidad</th>
+                    <th style="width: 10%;" scope="col">Precio por unidad</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let det of detalles | paginate: { itemsPerPage: 10, currentPage: p }; index as j">
+                    <th scope="row">{{j+1}}</th>
+                    <td>{{det.Producto.nombre}}</td>
+                    <td>{{det.cantidad}}</td>
+                    <td>{{det.Producto.precio_venta}}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+              <h1>Total = {{total}}</h1>
+              <div id="opcion">
+                <label for="Productos" class="text-primary">Productos</label>
+                <select class="form-control" id="Productos" required [(ngModel)]="productoSeleccionado">
+                  <option *ngFor="let prod of productos" value="{{prod.id}}">{{prod.nombre}}</option>
+                </select>
+              </div>
+              <div id="opcion">
+                <input
+                    width="20"
+                    type="number"
+                    class="form-control"
+                    placeholder="Cantidad"
+                    [(ngModel)]="cantidad"
+                />
+              </div>
+              <div id="opcion">
+                <button (click)="agregarProducto()"  class="btn btn-outline-secondary btn-sm">Agregar</button>
+              </div>
+              <button class="btn btn-outline-secondary btn-sm" (click)="cerrarMesa()">Cerrar Mesa</button>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -68,14 +164,14 @@
 
   </div>
 
-  <div class="row">
+  <!-- <div class="row">
     cabecera cambiar a abierto
     <button (click)="abrirMesa(1)">Abrir Mesa</button>
     cerrar mesa ocupada
     <button (click)="cerrarMesa()">Cerrar Mesa</button>
     pdf mesa ocupada
     <button (click)="pdf()">pdf</button>
-  </div>
+  </div> -->
 </div>
 
 
