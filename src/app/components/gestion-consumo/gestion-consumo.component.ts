@@ -176,13 +176,14 @@ export class GestionConsumoComponent implements OnInit {
     this.gestion_consumoService.create(data).subscribe(
       response => {
         console.log(response);
+        this.abierto=true
         this.mostrarCabecera()
         this.mostrarProductos()
+
       },
       error => {
         console.log(error);
       });
-
   }
 
   abrirMesa(id: number) {
