@@ -158,11 +158,16 @@ export class GestionConsumoComponent implements OnInit {
       this.mesaSeleccionada = res
       if (res.cabeceras_consumos.length === 0) {
         this.abierto = false
+        this.detalles = []
+        this.clienteSeleccionado= -1
+        this.cabeceras=[]
+        this.total=0
+        this.mostrar=false
       } else {
         this.abierto = true
+        this.mostrarCabecera()
       }
     })
-    this.mostrarCabecera()
     this.mostrarProductos()
   }
 
@@ -280,6 +285,8 @@ export class GestionConsumoComponent implements OnInit {
       error => {
         console.log(error);
       });
+      this.cantidad=null
+      this.productoSeleccionado=-1
     console.log(data)
 
   }
