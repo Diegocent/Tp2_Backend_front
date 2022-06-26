@@ -66,6 +66,8 @@
               <select class="form-control" id="Cliente" required [(ngModel)]="clienteSeleccionado">
                 <option *ngFor="let cli of clientes" value="{{cli.id}}">{{cli.nombre}}</option>
               </select>
+              <button class="btn btn-outline-secondary btn-sm" (click)="abrirDialogo()">Agregar Cliente</button>
+              <button class="btn btn-outline-secondary btn-sm" (click)="actualizarCabecera()">Guardar Cambios</button>
 
               <table class="table table-striped">
                 <thead>
@@ -115,6 +117,7 @@
                 <option *ngFor="let cli of clientes" value="{{cli.id}}">{{cli.nombre}}</option>
               </select>
               <button class="btn btn-outline-secondary btn-sm" (click)="cargarMesa()">Abrir Mesa</button>
+              <button class="btn btn-outline-secondary btn-sm" (click)="abrirDialogo()">Agregar Cliente</button>
 
               <table class="table table-striped">
                 <thead>

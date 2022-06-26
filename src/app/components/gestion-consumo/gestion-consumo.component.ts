@@ -8,7 +8,8 @@ import {Gestion_consumoService} from "../../services/gestion_consumo.service";
 import {ProductosService} from "../../services/productos.service";
 import { ClienteService } from 'src/app/services/cliente.service';
 import { Detalle_consumoService } from 'src/app/services/detalle_consumo.service';
-
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { PopupComponent } from '../popup/popup.component';
 
 interface restaurante {
   id: number
@@ -121,13 +122,22 @@ export class GestionConsumoComponent implements OnInit {
               private gestion_consumoService: Gestion_consumoService,
               private productosService: ProductosService,
               private clienteService: ClienteService,
-              private detalleConsumoService: Detalle_consumoService) {
+              private detalleConsumoService: Detalle_consumoService,
+              private matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this.retrieveRestaurantes()
+    this.abierto=false
   }
 
+  abrirDialogo(){
+    let dialogRef= this.matDialog.open(PopupComponent)
+    dialogRef.afterClosed().subscribe(result=>{
+    this.mostrarCabecera()
+    this.mostrarProductos()
+  });
+  }
 
   retrieveRestaurantes(): void {
     this.restauranteService.getAll()
@@ -154,12 +164,14 @@ export class GestionConsumoComponent implements OnInit {
   }
 
   seleccionarMesa() {
+    console.log(this.mesaNumero)
     this.mesaService.get(this.mesaNumero).subscribe((res) => {
       this.mesaSeleccionada = res
+      console.log(res.cabeceras_consumos.length)
       if (res.cabeceras_consumos.length === 0) {
-        this.abierto = false
         this.detalles = []
-        this.clienteSeleccionado= -1
+        this.clienteSeleccionado = 1
+        this.productoSeleccionado=1
         this.cabeceras=[]
         this.total=0
         this.mostrar=false
@@ -173,6 +185,7 @@ export class GestionConsumoComponent implements OnInit {
 
 
   cargarMesa(){
+    console.log(this.mesaNumero,this.clienteSeleccionado)
     let data={
       'MesaId': this.mesaNumero,
       'ClienteId': this.clienteSeleccionado,
@@ -181,10 +194,8 @@ export class GestionConsumoComponent implements OnInit {
     this.gestion_consumoService.create(data).subscribe(
       response => {
         console.log(response);
-        this.abierto=true
-        this.mostrarCabecera()
-        this.mostrarProductos()
-
+        this.abierto=true;
+        this.mostrarCabecera();
       },
       error => {
         console.log(error);
@@ -206,10 +217,20 @@ export class GestionConsumoComponent implements OnInit {
       this.pdfService.generarPDF(this.mesaNumero)
       this.http.put(`${this.baseUrl}/cerrar/?MesaId=${this.mesaSeleccionada.id}`, {}).subscribe((res) => {
         console.log(res)
-      })
+        this.abierto=false
+        this.clienteSeleccionado = 0
+        this.productoSeleccionado = 0
+        this.cabeceras=[]
+        this.detalles = []
+        this.total=0
+        this.mostrar=false
+        setTimeout( function() { window.location.href = "http://localhost:4200/gestion-consumo"; }, 1000 );
+      });
     } else {
       console.log('mesa ya cerrada o no seleccionada')
     }
+    // window.location.reload();
+
   }
   mostrarProductos(){
     this.clienteService.getAll(null).subscribe(
@@ -242,6 +263,13 @@ export class GestionConsumoComponent implements OnInit {
 
   MostrarAgregarCliente(){
     this.clientenuevo=true
+  }
+
+  actualizarCabecera(){
+    let data={
+      "ClienteId":this.clienteSeleccionado
+    }
+    this.gestion_consumoService.update(this.cabeceras[0].id,data).subscribe(respuesta=> console.log(respuesta))
   }
 
   mostrarCabecera(){
@@ -279,14 +307,13 @@ export class GestionConsumoComponent implements OnInit {
     this.detalleConsumoService.create(data).subscribe(
       response => {
         console.log(response);
-        this.mostrarCabecera()
-      this.mostrarProductos()
+       this.mostrarCabecera()
       },
       error => {
         console.log(error);
       });
       this.cantidad=null
-      this.productoSeleccionado=-1
+      this.productoSeleccionado=0
     console.log(data)
 
   }

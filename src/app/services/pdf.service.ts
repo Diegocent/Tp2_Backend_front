@@ -44,6 +44,7 @@ export class PdfService {
           this.cabecera = cabecera
           this.procesarDetalles()
           this.dibujarPDF()
+          this.detalles = []
         })
 
       })
@@ -68,6 +69,7 @@ export class PdfService {
       }
       this.detalles.push(aux)
     }
+    console.log('los detalles son ',this.detalles)
   }
 
   dibujarPDF() {

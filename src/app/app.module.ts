@@ -16,6 +16,9 @@ import { AddClienteComponent } from './components/add-cliente/add-cliente.compon
 import { SigmaComponent } from './components/sigma/sigma.component';
 import {GraficoMesasComponent} from "./components/grafico-mesas/grafico-mesas.component";
 import { GestionConsumoComponent } from './components/gestion-consumo/gestion-consumo.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PopupComponent } from './components/popup/popup.component';
 
 @NgModule({
     declarations: [
@@ -29,6 +32,10 @@ import { GestionConsumoComponent } from './components/gestion-consumo/gestion-co
         SigmaComponent,
         GraficoMesasComponent,
         GestionConsumoComponent,
+        PopupComponent
+    ],
+    entryComponents:[
+      PopupComponent
     ],
   imports: [
     BrowserModule,
@@ -36,7 +43,9 @@ import { GestionConsumoComponent } from './components/gestion-consumo/gestion-co
     AppRoutingModule,
     NgSelectModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

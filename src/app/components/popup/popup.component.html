@@ -1,0 +1,24 @@
+  <form>
+  <div class="form-group">
+      <label for="cliente-cedula" class="col-form-label">Cédula:</label>
+      <input [(ngModel)]="cliente1.cedula" type="text" class="form-control" id="cliente-cedula" name="cedula">
+  </div>
+  <div class="form-group">
+      <label for="cliente-nombre" class="col-form-label">Nombre:</label>
+      <input type="text" class="form-control" id="cliente-nombre" name="nombre" [(ngModel)]="cliente1.nombre">
+  </div>
+  <div class="form-group">
+      <label for="cliente-apellido" class="col-form-label">Apellido:</label>
+      <input [(ngModel)]="cliente1.apellido" type="text" class="form-control" id="cliente-apellido" name="apellido">
+  </div>
+  </form>
+  <button type="button" class="btn btn-secondary" (click)="onCloseClick()">Cerrar</button>
+  <button type="button" class="btn btn-primary" (click)="saveCliente()" data-dismiss="modal">
+      Guardar
+  </button>
+  <!-- <div class="alert alert-success" role="alert">
+      Cliente guardado exitosamente
+  </div>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+  </button> -->
